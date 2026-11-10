@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>English Learning Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <header class="top-header">
+        <div class="logo">
+            <i class='bx bx-book-open'></i>
+            <span>English Studio</span>
+        </div>
+        <div class="header-actions">
+            <button id="eye-care-toggle" class="icon-btn" title="Eye-Care Mode">
+                <i class='bx bx-low-vision'></i>
+            </button>
+            <button id="theme-toggle" class="icon-btn" title="Dark Mode">
+                <i class='bx bx-moon'></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="container">
+        
+        <!-- Live Progress Tracker -->
+        <section class="progress-section">
+            <h2 style="font-size: 1.3rem; margin-bottom: 15px;">Daily Progress</h2>
+            <div class="stats-card">
+                <div class="stat-item">
+                    <i class='bx bxs-flame' style='color:#ff9800'></i>
+                    <div>
+                        <h4 id="streak-count">0 Days</h4>
+                        <p>Streak</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class='bx bx-target-lock' style='color:#4caf50'></i>
+                    <div>
+                        <h4><span id="questions-done">0</span> / 100</h4>
+                        <p>Questions</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class='bx bx-brain' style='color:#2196f3'></i>
+                    <div>
+                        <h4 id="vocab-learned">0</h4>
+                        <p>Vocab</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Modules Grid -->
+        <section class="rooms-grid">
+            <a href="grammar.html" class="room-card">
+                <i class='bx bx-check-shield room-icon'></i>
+                <h3>Grammar Rules</h3>
+                <p>Topic-wise Practice</p>
+            </a>
+            <a href="vocab.html" class="room-card">
+                <i class='bx bx-library room-icon'></i>
+                <h3>Vocabulary</h3>
+                <p>Black Book Style</p>
+            </a>
+            <a href="pyq.html" class="room-card highlight">
+                <i class='bx bx-history room-icon'></i>
+                <h3>PYQ Practice</h3>
+                <p>SSC CGL & NDA</p>
+            </a>
+            <a href="cloze.html" class="room-card">
+                <i class='bx bx-file-blank room-icon'></i>
+                <h3>Cloze Test</h3>
+                <p>Passage Analysis</p>
+            </a>
+            <a href="pqrs.html" class="room-card">
+                <i class='bx bx-shuffle room-icon'></i>
+                <h3>PQRS</h3>
+                <p>Sentence Arrangement</p>
+            </a>
+            <a href="rc.html" class="room-card">
+                <i class='bx bx-book-reader room-icon'></i>
+                <h3>Comprehension</h3>
+                <p>Reading Skills</p>
+            </a>
+            <a href="bookmarks.html" class="room-card" style="border: 2px dashed #ff9800;">
+                <i class='bx bxs-bookmark-star room-icon' style='color:#ff9800'></i>
+                <h3>Quick Revision</h3>
+                <p>Saved Notes & Qs</p>
+            </a>
+            <a href="errors.html" class="room-card" style="border: 2px dashed #f44336; background: rgba(244, 67, 54, 0.05);">
+                <i class='bx bx-error-circle room-icon' style='color:#f44336'></i>
+                <h3>Error Ledger</h3>
+                <p>Auto-saved Mistakes</p>
+            </a>
+        </section>
+
+        <!-- Floating AI Button -->
+        <button class="floating-ai-btn" onclick="openAI()">
+            <i class='bx bx-bot'></i> Ask AI
+        </button>
+
+        <!-- AI Teacher Chat Modal -->
+        <div id="ai-modal" class="modal-overlay" style="display: none;">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3><i class='bx bx-bot'></i> AI Teacher</h3>
+                    <button class="icon-btn" onclick="closeAI()"><i class='bx bx-x'></i></button>
+                </div>
+                <div id="chat-box" class="chat-box">
+                    <div class="ai-msg">Hello! I am your AI English Teacher. Ask me any Grammar rule, Vocab, or PYQ doubt. I can also suggest Rani Ma'am's videos!</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="ai-input" placeholder="Type your question here..." onkeypress="handleEnter(event)">
+                    <button class="send-btn" onclick="askAI()"><i class='bx bx-send'></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Settings Link -->
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="admin.html" style="color: var(--text-muted); text-decoration: none; font-size: 1.5rem;">
+                <i class='bx bx-cog'></i>
+            </a>
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
