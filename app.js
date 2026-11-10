@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================
-// REAL AI TEACHER & YOUTUBE INTEGRATION
+// REAL AI TEACHER (NO YOUTUBE REDIRECT)
 // ==========================================
 // अपनी असली Gemini API Key यहाँ डबल कोट्स के अंदर पेस्ट करें:
 const GEMINI_API_KEY = "PASTE_YOUR_API_KEY_HERE"; 
@@ -77,22 +77,20 @@ window.askAI = async function() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     const loadingId = "load-" + Date.now();
-    chatBox.innerHTML += `<div class="ai-msg" id="${loadingId}"><i class='bx bx-loader-alt bx-spin'></i> AI is thinking...</div>`;
+    chatBox.innerHTML += `<div class="ai-msg" id="${loadingId}"><i class='bx bx-loader-alt bx-spin'></i> AI is analyzing...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // अगर API Key नहीं डाली है, तो स्मार्ट आन्सर दें ताकि ऐप रुके नहीं
     if (GEMINI_API_KEY === "PASTE_YOUR_API_KEY_HERE" || GEMINI_API_KEY === "") {
         setTimeout(() => {
-            let fallbackAns = `नमस्ते Sahil! आपने अभी अपनी Gemini API Key नहीं जोड़ी है, इसलिए मैं अभी लोकल मोड में हूँ।<br><br>आपके सवाल <strong>"${userText}"</strong> के लिए यह सलाह है कि SSC CGL में इस टॉपिक पर रानी मैम की क्लास जरूर देखें!`;
-            const ytBtn = generateYouTubeLink(userText);
-            document.getElementById(loadingId).innerHTML = fallbackAns + ytBtn;
+            document.getElementById(loadingId).innerHTML = `⚠️ कृपया अपनी Gemini API Key 'app.js' में डालें ताकि AI सीधे जवाब दे सके।`;
             chatBox.scrollTop = chatBox.scrollHeight;
         }, 1000);
         return;
     }
 
     try {
-        const prompt = `Act as an expert SSC CGL English Teacher. Student asks: "${userText}". Explain simply in Hinglish. Keep it highly relevant to SSC CGL exams. Be concise.`;
+        const prompt = `Act as an expert SSC CGL English Teacher. The student is asking for the meaning, rule, or explanation of: "${userText}". 
+        Give a direct, clear, and comprehensive explanation in Hinglish (mix of Hindi & English) just like a topper's notes. Include meanings, synonyms/antonyms if it's a word, or rules and examples if it's grammar. Do NOT provide external links or YouTube suggestions. Be structured and concise.`;
 
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
             method: "POST",
@@ -108,28 +106,13 @@ window.askAI = async function() {
         }
 
         let aiText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
-        const ytButtonHtml = generateYouTubeLink(userText);
         
-        document.getElementById(loadingId).innerHTML = aiText + ytButtonHtml;
+        // सीधा जवाब स्क्रीन पर दिखेगा, कोई YouTube लिंक नहीं!
+        document.getElementById(loadingId).innerHTML = aiText;
         chatBox.scrollTop = chatBox.scrollHeight;
     } catch (error) {
         document.getElementById(loadingId).innerHTML = "⚠️ Network error. Please check your internet connection.";
     }
-}
-
-function generateYouTubeLink(query) {
-    const lowerQuery = query.toLowerCase();
-    let searchTopic = "";
-
-    if (lowerQuery.includes("cloze")) searchTopic = "Cloze Test tricks";
-    else if (lowerQuery.includes("pqrs") || lowerQuery.includes("arrangement")) searchTopic = "PQRS sentence rearrangement tricks";
-    else if (lowerQuery.includes("rc") || lowerQuery.includes("comprehension")) searchTopic = "Reading Comprehension strategies";
-    else if (lowerQuery.includes("vocab") || lowerQuery.includes("synonym") || lowerQuery.includes("meaning")) searchTopic = "Vocabulary Black Book SSC";
-    else if (lowerQuery.includes("grammar") || lowerQuery.includes("error") || lowerQuery.includes("tense")) searchTopic = "Grammar Error Detection rules";
-    else searchTopic = "English with Rani Maam SSC CGL";
-
-    const searchUrl = `https://www.youtube.com/results?search_query=English+with+Rani+Maam+${encodeURIComponent(searchTopic)}`;
-    return `<br><br><a href="${searchUrl}" target="_blank" class="yt-link-btn" style="display:inline-block; margin-top:10px; padding:8px 12px; background:#ff0000; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;"><i class='bx bxl-youtube'></i> Watch Rani Ma'am on YouTube</a>`;
 }
 
 // ==========================================
@@ -159,4 +142,3 @@ window.toggleBookmark = function(btn, type, text) {
     }
     localStorage.setItem("my_bookmarks", JSON.stringify(bookmarks));
 };
-    
