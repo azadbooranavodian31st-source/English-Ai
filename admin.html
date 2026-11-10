@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Admin Panel - English Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+    <header class="page-header top-header">
+        <a href="index.html" class="icon-btn"><i class='bx bx-home'></i></a>
+        <div class="logo">
+            <i class='bx bx-shield-quarter'></i>
+            <span>Owner Portal</span>
+        </div>
+        <div style="width: 24px;"></div> <!-- Spacer for flex alignment -->
+    </header>
+
+    <main class="container">
+        
+        <!-- LOGIN SECTION -->
+        <div id="login-section" class="stats-card" style="flex-direction: column; text-align: center; gap: 15px; max-width: 400px; margin: 40px auto;">
+            <h2>Admin Login</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Restricted access. Sahil Only.</p>
+            
+            <input type="text" id="admin-user" class="search-bar" placeholder="Username">
+            <input type="password" id="admin-pass" class="search-bar" placeholder="Password">
+            
+            <button class="learn-btn" onclick="checkLogin()">Login</button>
+            <p id="login-error" style="color: var(--wrong-color); font-weight: bold; display: none;">Incorrect Username or Password!</p>
+        </div>
+
+        <!-- ADMIN DASHBOARD (Hidden until login) -->
+        <div id="admin-dashboard" style="display: none;">
+            
+            <!-- Welcome Bar -->
+            <div class="stats-card" style="align-items: center; margin-bottom: 20px;">
+                <h3 style="color: var(--primary-color); display: flex; align-items: center; gap: 8px;">
+                    <i class='bx bxs-user-badge'></i> Welcome, Sahil!
+                </h3>
+                <button onclick="logout()" class="icon-btn" style="color: var(--wrong-color);"><i class='bx bx-log-out-circle'></i></button>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="stats-card" style="flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <h3 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Upload Study Source</h3>
+                
+                <label style="font-weight: bold; color: var(--text-muted);">1. Select Target Category</label>
+                <select id="target-room" class="search-bar">
+                    <option value="PQRS">PQRS</option>
+                    <option value="Cloze Test">Cloze Test</option>
+                    <option value="Reading Comprehension">Reading Comprehension</option>
+                    <option value="Grammar Rules">Grammar Rules</option>
+                    <option value="Vocabulary">Vocabulary</option>
+                    <option value="PYQ Practice">PYQ Practice</option>
+                    <option value="The Hindu Editorial">The Hindu Editorial</option>
+                    <option value="Expected Questions">Expected Questions</option>
+                </select>
+
+                <label style="font-weight: bold; color: var(--text-muted); margin-top: 10px;">2. Upload PDF/Text File</label>
+                <div style="border: 2px dashed var(--border-color); padding: 25px; border-radius: 12px; text-align: center; background: rgba(37, 99, 235, 0.02);">
+                    <i class='bx bx-cloud-upload' style='font-size: 3rem; color: var(--primary-color);'></i>
+                    <p id="file-name-display" style="margin: 10px 0;">Tap to select file (PDF, TXT, DOCX)</p>
+                    <input type="file" id="file-upload" style="display:none;" onchange="updateFileName()">
+                    <button class="learn-btn" onclick="document.getElementById('file-upload').click()" style="background: var(--text-muted); width: auto; margin: 0 auto; padding: 8px 20px;">Choose File</button>
+                </div>
+
+                <label style="font-weight: bold; color: var(--text-muted); margin-top: 10px;">3. Or Paste Content Manually</label>
+                <textarea id="manual-text" class="search-bar" rows="4" placeholder="Paste source text here..."></textarea>
+
+                <button class="learn-btn" id="process-btn" onclick="generateQuestions()" style="background-color: var(--correct-color); margin-top: 10px;">
+                    <i class='bx bx-cog'></i> Process & Save Source
+                </button>
+            </div>
+
+            <!-- Upload History Section -->
+            <div class="stats-card" style="flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <h3 style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Upload History</h3>
+                <div id="history-list" style="display:flex; flex-direction:column; gap:10px; max-height: 250px; overflow-y: auto;">
+                    <!-- History will load here -->
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="
+              
